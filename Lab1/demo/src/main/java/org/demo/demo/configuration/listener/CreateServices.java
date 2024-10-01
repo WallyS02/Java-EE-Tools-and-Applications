@@ -21,11 +21,11 @@ public class CreateServices implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         DataStore dataSource = (DataStore) event.getServletContext().getAttribute("datasource");
 
-        MusicianRepository musicianRepository = new MusicianInMemoryRepository(dataSource);
+        MusicianRepository musicianRepository = new MusicianInMemoryRepository(dataSource, event.getServletContext());
         InstrumentRepository instrumentRepository = new InstrumentInMemoryRepository(dataSource);
         SkillRepository skillRepository = new SkillInMemoryRepository(dataSource);
 
-        event.getServletContext().setAttribute("musicianService", new MusicianService(musicianRepository, new Pbkdf2PasswordHash(), event.getServletContext()));
+        event.getServletContext().setAttribute("musicianService", new MusicianService(musicianRepository, new Pbkdf2PasswordHash()));
         event.getServletContext().setAttribute("instrumentService", new InstrumentService(instrumentRepository));
         event.getServletContext().setAttribute("skillService", new SkillService(instrumentRepository, skillRepository, musicianRepository));
     }

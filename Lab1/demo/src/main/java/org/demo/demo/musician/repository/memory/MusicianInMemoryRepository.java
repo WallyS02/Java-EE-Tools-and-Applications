@@ -1,9 +1,16 @@
 package org.demo.demo.musician.repository.memory;
 
+import jakarta.servlet.ServletContext;
+import org.demo.demo.controller.servlet.exception.NotFoundException;
 import org.demo.demo.datastore.component.DataStore;
 import org.demo.demo.musician.entity.Musician;
 import org.demo.demo.musician.repository.api.MusicianRepository;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -12,8 +19,11 @@ import java.util.stream.Collectors;
 public class MusicianInMemoryRepository implements MusicianRepository {
     private final DataStore store;
 
-    public MusicianInMemoryRepository(DataStore store) {
+    private final Path uploadPath;
+
+    public MusicianInMemoryRepository(DataStore store, ServletContext servletContext) {
         this.store = store;
+        this.uploadPath = Paths.get(servletContext.getInitParameter("uploadDirectory"));
     }
 
     @Override
@@ -69,5 +79,59 @@ public class MusicianInMemoryRepository implements MusicianRepository {
     @Override
     public void update(Musician entity) {
         store.updateMusician(entity);
+    }
+
+    @Override
+    public void updateImage(UUID id, InputStream is) {
+        find(id).ifPresent(musician -> {
+            Path filePath = uploadPath.resolve(musician.getLogin() + ".png");
+            if (Files.exists(filePath)) {
+                try {
+                    Files.delete(filePath);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    Files.copy(is, filePath);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                try {
+                    Files.copy(is, filePath);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void deleteImage(UUID id) {
+        find(id).ifPresent(musician -> {
+            Path filePath = uploadPath.resolve(musician.getLogin() + ".png");
+            if(Files.exists(filePath)) {
+                try {
+                    Files.delete(filePath);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+
+    @Override
+    public byte[] getImage(UUID id) throws IOException {
+        Optional<Musician> musician = find(id);
+        if (musician.isPresent()) {
+            Path filePath = uploadPath.resolve(musician.get().getLogin() + ".png");
+            if (Files.exists(filePath)) {
+                return Files.readAllBytes(filePath);
+            } else {
+                throw new NotFoundException();
+            }
+        } else {
+            throw new NotFoundException();
+        }
     }
 }
