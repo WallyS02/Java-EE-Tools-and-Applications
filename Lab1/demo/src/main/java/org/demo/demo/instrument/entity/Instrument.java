@@ -20,7 +20,8 @@ public class Instrument implements Serializable {
     private UUID id;
     private String name;
     private String type;
-    private String description;
+    private int typicalPrice;
+    private float tuningFrequency;
     @Builder.Default
     private List<Skill> skills = new ArrayList<>();
 }

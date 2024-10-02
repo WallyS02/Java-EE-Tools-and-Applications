@@ -12,7 +12,8 @@ public class UpdateInstrumentWithRequestFunction implements BiFunction<Instrumen
                 .id(instrument.getId())
                 .name(patchInstrumentRequest.getName())
                 .type(patchInstrumentRequest.getType())
-                .description(patchInstrumentRequest.getDescription())
+                .typicalPrice(patchInstrumentRequest.getTypicalPrice())
+                .tuningFrequency(patchInstrumentRequest.getTuningFrequency())
                 .skills(instrument.getSkills())
                 .build();
     }

@@ -15,6 +15,7 @@ public class UpdateMusicianPasswordRequestFunction implements BiFunction<Musicia
                 .birthday(musician.getBirthday())
                 .firstName(musician.getFirstName())
                 .lastName(musician.getLastName())
+                .albumsReleased(musician.getAlbumsReleased())
                 .password(putPasswordRequest.getPassword())
                 .skills(musician.getSkills())
                 .build();

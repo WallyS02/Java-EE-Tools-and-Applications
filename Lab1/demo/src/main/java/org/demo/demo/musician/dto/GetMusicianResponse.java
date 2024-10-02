@@ -20,6 +20,7 @@ public class GetMusicianResponse {
     private String lastName;
     private LocalDate birthday;
     private String login;
+    private int albumsReleased;
     private String email;
 
     @Getter

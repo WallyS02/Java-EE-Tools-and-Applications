@@ -16,5 +16,6 @@ public class PatchMusicianRequest {
     private String lastName;
     private LocalDate birthday;
     private String login;
+    private int albumsReleased;
     private String email;
 }

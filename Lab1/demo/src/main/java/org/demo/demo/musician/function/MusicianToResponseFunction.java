@@ -13,6 +13,7 @@ public class MusicianToResponseFunction implements Function<Musician, GetMusicia
                 .firstName(musician.getFirstName())
                 .lastName(musician.getLastName())
                 .login(musician.getLogin())
+                .albumsReleased(musician.getAlbumsReleased())
                 .email(musician.getEmail())
                 .birthday(musician.getBirthday())
                 .skills(musician.getSkills().stream()

@@ -15,6 +15,7 @@ public class UpdateMusicianWithRequestFunction implements BiFunction<Musician, P
                 .birthday(patchMusicianRequest.getBirthday())
                 .firstName(patchMusicianRequest.getFirstName())
                 .lastName(patchMusicianRequest.getLastName())
+                .albumsReleased(patchMusicianRequest.getAlbumsReleased())
                 .password(musician.getPassword())
                 .skills(musician.getSkills())
                 .build();

@@ -23,6 +23,7 @@ public class Musician implements Serializable {
     private String lastName;
     private LocalDate birthday;
     private String login;
+    private int albumsReleased;
     @ToString.Exclude
     private String password;
     private String email;

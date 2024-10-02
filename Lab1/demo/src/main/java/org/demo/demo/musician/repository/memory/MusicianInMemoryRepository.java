@@ -14,7 +14,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class MusicianInMemoryRepository implements MusicianRepository {
     private final DataStore store;
@@ -37,21 +36,21 @@ public class MusicianInMemoryRepository implements MusicianRepository {
     public List<Musician> findByEmail(String email) {
         return store.findAllMusicians().stream()
                 .filter(musician -> musician.getEmail().equals(email))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<Musician> findByFirstName(String firstName) {
         return store.findAllMusicians().stream()
                 .filter(musician -> musician.getFirstName().equals(firstName))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<Musician> findByLastName(String lastName) {
         return store.findAllMusicians().stream()
                 .filter(musician -> musician.getLastName().equals(lastName))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

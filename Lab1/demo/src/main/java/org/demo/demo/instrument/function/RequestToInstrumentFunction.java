@@ -13,7 +13,8 @@ public class RequestToInstrumentFunction implements BiFunction<UUID, PutInstrume
                 .id(uuid)
                 .name(putInstrumentRequest.getName())
                 .type(putInstrumentRequest.getType())
-                .description(putInstrumentRequest.getDescription())
+                .typicalPrice(putInstrumentRequest.getTypicalPrice())
+                .tuningFrequency(putInstrumentRequest.getTuningFrequency())
                 .build();
     }
 }

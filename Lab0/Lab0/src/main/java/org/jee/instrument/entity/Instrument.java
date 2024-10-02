@@ -16,6 +16,7 @@ import java.util.List;
 public class Instrument {
     private String name;
     private String type;
-    private String description;
+    private int typicalPrice;
+    private float tuningFrequency;
     private List<Skill> skills;
 }

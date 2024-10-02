@@ -10,7 +10,6 @@ import org.demo.demo.util.Level;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class SkillInMemoryRepository implements SkillRepository {
     private final DataStore store;
@@ -23,21 +22,21 @@ public class SkillInMemoryRepository implements SkillRepository {
     public List<Skill> findAllByLevel(Level level) {
         return store.findAllSkills().stream()
                 .filter(skill -> skill.getLevel().equals(level))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<Skill> findAllByInstrument(Instrument instrument) {
         return store.findAllSkills().stream()
                 .filter(skill -> skill.getInstrument().equals(instrument))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<Skill> findAllByMusician(Musician musician) {
         return store.findAllSkills().stream()
                 .filter(skill -> skill.getMusician().equals(musician))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

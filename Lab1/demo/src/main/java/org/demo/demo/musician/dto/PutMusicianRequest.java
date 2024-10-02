@@ -16,6 +16,7 @@ public class PutMusicianRequest {
     private String lastName;
     private LocalDate birthday;
     private String login;
+    private int albumsReleased;
     private String password;
     private String email;
 }

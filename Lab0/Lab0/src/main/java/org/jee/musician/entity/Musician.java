@@ -16,7 +16,9 @@ import java.util.List;
 @EqualsAndHashCode
 public class Musician {
     private String login;
-    private String wholeName;
+    private String firstName;
+    private String lastName;
     private LocalDate birthday;
+    private int albumsReleased;
     private List<Skill> skills;
 }

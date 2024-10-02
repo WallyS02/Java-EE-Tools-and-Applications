@@ -7,7 +7,6 @@ import org.demo.demo.instrument.repository.api.InstrumentRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class InstrumentInMemoryRepository implements InstrumentRepository {
     private final DataStore store;
@@ -20,14 +19,14 @@ public class InstrumentInMemoryRepository implements InstrumentRepository {
     public List<Instrument> findAllByName(String name) {
         return store.findAllInstruments().stream()
                 .filter(instrument -> instrument.getName().equals(name))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<Instrument> findAllByType(String type) {
         return store.findAllInstruments().stream()
                 .filter(instrument -> instrument.getType().equals(type))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

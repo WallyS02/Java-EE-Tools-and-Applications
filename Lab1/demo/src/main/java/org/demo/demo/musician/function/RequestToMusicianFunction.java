@@ -17,6 +17,7 @@ public class RequestToMusicianFunction implements BiFunction<UUID, PutMusicianRe
                 .birthday(putMusicianRequest.getBirthday())
                 .firstName(putMusicianRequest.getFirstName())
                 .lastName(putMusicianRequest.getLastName())
+                .albumsReleased(putMusicianRequest.getAlbumsReleased())
                 .password(putMusicianRequest.getPassword())
                 .build();
     }
