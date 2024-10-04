@@ -7,7 +7,7 @@
 
     <context-param>
         <param-name>uploadDirectory</param-name>
-        <param-value>C:\Users\Ja\Downloads\JEE\Lab\Lab1\demo\images</param-value>
+        <param-value>C:\Users\Ja\Downloads\JEE\Lab\Lab2\demo\images</param-value>
     </context-param>
 
 </web-app>

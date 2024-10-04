@@ -1,0 +1,131 @@
+# Get all musicians.
+
+GET http://localhost:9080/music/api/musicians
+
+###
+
+# Get single musician.
+
+GET http://localhost:9080/music/api/musicians/00507393-fb97-4f3e-accf-8a9b2ceb2026
+
+###
+
+# Get single musician not existing.
+
+GET http://localhost:9080/music/api/musicians/00507393-fb97-4f3e-accf-8a9b2ceb2029
+
+###
+
+# Create new musician.
+
+PUT http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+Content-Type: application/json
+
+{
+  "login": "joshuaehomme",
+  "password": "password131415",
+  "email": "joshua.homme@example.com",
+  "firstName": "Joshuae",
+  "lastName": "Homme",
+  "birthday": "1973-05-27"
+}
+
+###
+
+# Get new musician.
+
+GET http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+
+###
+
+# Update musician.
+
+PATCH http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+Content-Type: application/json
+
+{
+  "login": "joshuahomme",
+  "email": "joshua.homme@example.com",
+  "firstName": "Joshua",
+  "lastName": "Homme",
+  "birthday": "1973-05-27"
+}
+
+###
+
+# Get updated musician.
+
+GET http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+
+###
+
+# Get single musician image.
+
+GET http://localhost:9080/music/api/musicians/00507393-fb97-4f3e-accf-8a9b2ceb2026/image
+
+###
+
+# Get single musician image, not existing.
+
+GET http://localhost:9080/music/api/musicians/00507393-fb97-4f3e-accf-8a9b2ceb2029/image
+
+###
+
+# Create musician image.
+
+PUT http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9/image
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="image"; filename="homme2.png"
+
+< C:\\Users\\Ja\\Downloads\\JEE\\Lab\\Lab1\\homme2.png
+--boundary--
+
+###
+
+# Get new musician image.
+
+GET http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9/image
+
+###
+
+# Update musician image
+PATCH http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9/image
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="image"; filename="homme.png"
+
+< C:\\Users\\Ja\\Downloads\\JEE\\Lab\\Lab1\\homme.png
+--boundary--
+
+###
+
+# Get updated musician image.
+
+GET http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9/image
+
+###
+
+# Delete musician image
+
+DELETE http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9/image
+
+###
+
+# Get deleted musician image.
+
+GET http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9/image
+
+###
+
+# Delete musician.
+
+DELETE http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+
+###
+
+# Get deleted musician.
+
+GET http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
