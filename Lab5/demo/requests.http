@@ -1,0 +1,135 @@
+# Get all instruments.
+
+GET http://localhost:9080/music/api/instruments
+
+###
+
+# Get single instrument.
+
+GET http://localhost:9080/music/api/instruments/7d9d2e0e-cf45-4078-bf84-edb16423a30e
+
+###
+
+# Get single instrument not existing.
+
+GET http://localhost:9080/music/api/instruments/00507393-fb97-4f3e-accf-8a9b2ceb2029
+
+###
+
+# Create new instrument.
+
+PUT http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+Content-Type: application/json
+
+{
+  "name": "Harmonic",
+  "type": "Wind",
+  "typicalPrice": "400",
+  "tuningFrequency": "443"
+}
+
+###
+
+# Get new instrument.
+
+GET http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+
+###
+
+# Update instrument.
+
+PATCH http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+Content-Type: application/json
+
+{
+  "name": "Harmonica",
+  "type": "Wind",
+  "typicalPrice": "200",
+  "tuningFrequency": "443"
+}
+
+###
+
+# Get updated instrument.
+
+GET http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+
+###
+
+# Get all skills.
+
+GET http://localhost:9080/music/api/skills
+
+###
+
+# Get single skill.
+
+GET http://localhost:9080/music/api/skills/bf07d104-9cdf-408a-a599-176aa568fd7d
+
+###
+
+# Get single skill not existing.
+
+GET http://localhost:9080/music/api/skills/00507393-fb97-4f3e-accf-8a9b2ceb2029
+
+###
+
+# Create new skill.
+
+PUT http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+Content-Type: application/json
+
+{
+  "numberOfPlayingYears": "0",
+  "level": "BEGINNER",
+  "favouriteModelName": "Lee Oskar Major Diatonic"
+}
+
+###
+
+# Get new skill.
+
+GET http://localhost:9080/music/api/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+
+###
+
+# Update skill.
+
+PATCH http://localhost:9080/music/api/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+Content-Type: application/json
+
+{
+  "numberOfPlayingYears": "2",
+  "level": "INTERMEDIATE",
+  "favouriteModelName": "Lee Oskar Major Diatonic"
+}
+
+###
+
+# Get updated skill.
+
+GET http://localhost:9080/music/api/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+
+###
+
+# Delete skill.
+
+DELETE http://localhost:9080/music/api/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+
+###
+
+# Get deleted skill.
+
+GET http://localhost:9080/music/api/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+
+###
+
+# Delete instrument.
+
+DELETE http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+
+###
+
+# Get deleted instrument.
+
+GET http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
