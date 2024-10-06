@@ -1,0 +1,401 @@
+# Get all instruments. No credentials.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/instruments
+
+###
+
+# Get all instruments. Wrong credentials.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/instruments
+Authorization: Basic Z2VvcmdlaGFycmlzb246cGFzc3dvcmQ=
+
+###
+
+# Get all instruments. Correct credentials.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/instruments
+Authorization: Basic Z2VvcmdlaGFycmlzb246cGFzc3dvcmQxMDExMTI=
+
+###
+
+# Get single instrument.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/instruments/7d9d2e0e-cf45-4078-bf84-edb16423a30e
+Authorization: Basic Z2VvcmdlaGFycmlzb246cGFzc3dvcmQxMDExMTI=
+
+###
+
+# Get single instrument not existing.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/instruments/00507393-fb97-4f3e-accf-8a9b2ceb2029
+Authorization: Basic Z2VvcmdlaGFycmlzb246cGFzc3dvcmQxMDExMTI=
+
+###
+
+# Create new instrument. User role.
+
+// @no-cookie-jar
+PUT http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+Authorization: Basic Z2VvcmdlaGFycmlzb246cGFzc3dvcmQxMDExMTI=
+Content-Type: application/json
+
+{
+  "name": "Harmonic",
+  "type": "Wind",
+  "typicalPrice": "400",
+  "tuningFrequency": "443"
+}
+
+###
+
+# Create new instrument. Admin role
+
+// @no-cookie-jar
+PUT http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+Content-Type: application/json
+
+{
+  "name": "Harmonic",
+  "type": "Wind",
+  "typicalPrice": "400",
+  "tuningFrequency": "443"
+}
+
+###
+
+# Get new instrument.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+
+###
+
+# Update instrument. User role
+
+// @no-cookie-jar
+PATCH http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+Authorization: Basic Z2VvcmdlaGFycmlzb246cGFzc3dvcmQxMDExMTI=
+Content-Type: application/json
+
+{
+  "name": "Harmonica",
+  "type": "Wind",
+  "typicalPrice": "200",
+  "tuningFrequency": "443"
+}
+
+###
+
+# Update instrument. Admin role
+
+// @no-cookie-jar
+PATCH http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+Content-Type: application/json
+
+{
+  "name": "Harmonica",
+  "type": "Wind",
+  "typicalPrice": "200",
+  "tuningFrequency": "443"
+}
+
+###
+
+# Get updated instrument.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+
+###
+
+# Get all musicians.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/musicians
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+
+###
+
+# Get single musician.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/musicians/00507393-fb97-4f3e-accf-8a9b2ceb2026
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+
+###
+
+# Get single musician not existing.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/musicians/00507393-fb97-4f3e-accf-8a9b2ceb2029
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+
+###
+
+# Create new musician. No credentials.
+
+PUT http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a0
+Content-Type: application/json
+
+{
+  "login": "joshuaehomme",
+  "password": "password131415",
+  "email": "joshua.homme@example.com",
+  "firstName": "Joshuae",
+  "lastName": "Homme",
+  "birthday": "1973-05-27"
+}
+
+###
+
+# Get new musician.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a0
+Authorization: Basic am9zaHVhZWhvbW1lOnBhc3N3b3JkMTMxNDE1
+
+###
+
+# Update musician.
+
+// @no-cookie-jar
+PATCH http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a0
+Authorization: Basic am9zaHVhZWhvbW1lOnBhc3N3b3JkMTMxNDE1
+Content-Type: application/json
+
+{
+  "login": "joshuahomme",
+  "email": "joshua.homme@example.com",
+  "firstName": "Joshua",
+  "lastName": "Homme",
+  "birthday": "1973-05-27"
+}
+
+###
+
+# Get updated musician.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a0
+Authorization: Basic am9zaHVhaG9tbWU6cGFzc3dvcmQxMzE0MTU=
+
+###
+
+# Get all skills. User role.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/skills
+Authorization: Basic Z2VvcmdlaGFycmlzb246cGFzc3dvcmQxMDExMTI=
+
+###
+
+# Get all skills. Admin role.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/skills
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+
+###
+
+# Get single skill. User role. User's Skill.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/skills/8f769997-623d-4eb4-b4e0-9fb6f5234fbb
+Authorization: Basic Z2VvcmdlaGFycmlzb246cGFzc3dvcmQxMDExMTI=
+
+###
+
+# Get single skill. User role. Not user's Skill.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/skills/bf07d104-9cdf-408a-a599-176aa568fd7d
+Authorization: Basic Z2VvcmdlaGFycmlzb246cGFzc3dvcmQxMDExMTI=
+
+###
+
+# Get single skill. Admin role.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/skills/bf07d104-9cdf-408a-a599-176aa568fd7d
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+
+###
+
+# Get single skill not existing.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/skills/00507393-fb97-4f3e-accf-8a9b2ceb2029
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+
+###
+
+# Create new skill.
+
+// @no-cookie-jar
+PUT http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+Authorization: Basic am9zaHVhaG9tbWU6cGFzc3dvcmQxMzE0MTU=
+Content-Type: application/json
+
+{
+  "numberOfPlayingYears": "0",
+  "level": "BEGINNER",
+  "favouriteModelName": "Lee Oskar Major Diatonic"
+}
+
+###
+
+# Get new skill.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+Authorization: Basic am9zaHVhaG9tbWU6cGFzc3dvcmQxMzE0MTU=
+
+###
+
+# Update skill. User role. User's skill.
+
+// @no-cookie-jar
+PATCH http://localhost:9080/music/api/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+Authorization: Basic am9zaHVhaG9tbWU6cGFzc3dvcmQxMzE0MTU=
+Content-Type: application/json
+
+{
+  "numberOfPlayingYears": "4",
+  "level": "ADVANCED",
+  "favouriteModelName": "Lee Oskar Major Diatonic"
+}
+
+###
+
+# Get updated skill.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+Authorization: Basic am9zaHVhaG9tbWU6cGFzc3dvcmQxMzE0MTU=
+
+###
+
+# Update skill. User role. Not user's skill.
+
+// @no-cookie-jar
+PATCH http://localhost:9080/music/api/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+Authorization: Basic Z2VvcmdlaGFycmlzb246cGFzc3dvcmQxMDExMTI=
+Content-Type: application/json
+
+{
+  "numberOfPlayingYears": "2",
+  "level": "INTERMEDIATE",
+  "favouriteModelName": "Lee Oskar Major Diatonic"
+}
+
+###
+
+# Update skill. Admin role.
+
+// @no-cookie-jar
+PATCH http://localhost:9080/music/api/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+Content-Type: application/json
+
+{
+  "numberOfPlayingYears": "2",
+  "level": "INTERMEDIATE",
+  "favouriteModelName": "Lee Oskar Major Diatonic"
+}
+
+###
+
+# Get updated skill.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+
+###
+
+# Delete skill. User role. User's skill.
+
+// @no-cookie-jar
+DELETE http://localhost:9080/music/api/skills/8f769997-623d-4eb4-b4e0-9fb6f5234fbb
+Authorization: Basic Z2VvcmdlaGFycmlzb246cGFzc3dvcmQxMDExMTI=
+
+###
+
+# Get deleted skill.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/skills/8f769997-623d-4eb4-b4e0-9fb6f5234fbb
+Authorization: Basic Z2VvcmdlaGFycmlzb246cGFzc3dvcmQxMDExMTI=
+
+###
+
+# Delete skill. User role. Not user's skill.
+
+// @no-cookie-jar
+DELETE http://localhost:9080/music/api/skills/ab686ff2-b21b-470e-911e-965741f16b36
+Authorization: Basic am9zaHVhaG9tbWU6cGFzc3dvcmQxMzE0MTU=
+
+###
+
+# Delete skill. Admin role.
+
+// @no-cookie-jar
+DELETE http://localhost:9080/music/api/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+
+###
+
+# Get deleted skill.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/skills/5082827f-83ae-422e-bc24-c9c345583bc8
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+
+###
+
+# Delete musician.
+
+// @no-cookie-jar
+DELETE http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a0
+Authorization: Basic am9zaHVhaG9tbWU6cGFzc3dvcmQxMzE0MTU=
+
+###
+
+# Get deleted musician.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/musicians/25a1e6cc-87bc-430f-9af5-2f4b3e8236a0
+Authorization: Basic am9zaHVhaG9tbWU6cGFzc3dvcmQxMzE0MTU=
+
+###
+
+# Delete instrument. User role
+
+// @no-cookie-jar
+DELETE http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+Authorization: Basic Z2VvcmdlaGFycmlzb246cGFzc3dvcmQxMDExMTI=
+
+###
+
+# Delete instrument. Admin role
+
+// @no-cookie-jar
+DELETE http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==
+
+###
+
+# Get deleted instrument.
+
+// @no-cookie-jar
+GET http://localhost:9080/music/api/instruments/25a1e6cc-87bc-430f-9af5-2f4b3e8236a9
+Authorization: Basic am9obmxlbm5vbjpwYXNzd29yZDEyMw==

@@ -5,10 +5,16 @@
          version="6.0"
          metadata-complete="false">
 
-    <context-param>
+    <!--<context-param>
         <param-name>uploadDirectory</param-name>
-        <param-value>C:\Users\Ja\Downloads\JEE\Lab\Lab4\demo\images</param-value>
-    </context-param>
+        <param-value>C:\Users\Ja\Downloads\JEE\Lab\Lab3\demo\images</param-value>
+    </context-param>-->
+
+    <env-entry>
+        <env-entry-name>uploadDirectory</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>C:\Users\Ja\Downloads\JEE\Lab\Lab6\demo\images</env-entry-value>
+    </env-entry>
 
     <context-param>
         <param-name>jakarta.faces.FACELETS_SKIP_COMMENTS </param-name>
@@ -34,4 +40,11 @@
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
 
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
 </web-app>
