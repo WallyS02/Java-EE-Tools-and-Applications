@@ -7,6 +7,7 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.SecurityContext;
 import lombok.NoArgsConstructor;
+import org.demo.demo.annotation.Loggable;
 import org.demo.demo.instrument.repository.api.InstrumentRepository;
 import org.demo.demo.musician.entity.MusicianRoles;
 import org.demo.demo.musician.repository.api.MusicianRepository;
@@ -91,6 +92,7 @@ public class SkillService {
     }
 
     @RolesAllowed(MusicianRoles.USER)
+    @Loggable
     public void create(Skill entity) {
         if(skillRepository.find(entity.getId()).isPresent()) {
             throw new IllegalArgumentException("Skill already exists");
@@ -102,18 +104,21 @@ public class SkillService {
     }
 
     @RolesAllowed(MusicianRoles.USER)
+    @Loggable
     public void createForCallerPrincipal(Skill entity) {
         entity.setMusician(musicianRepository.findByLogin(securityContext.getCallerPrincipal().getName()).orElseThrow(IllegalStateException::new));
         create(entity);
     }
 
     @RolesAllowed(MusicianRoles.USER)
+    @Loggable
     public void delete(UUID id) {
         checkAdminRoleOrOwner(skillRepository.find(id));
         skillRepository.delete(skillRepository.find(id).orElseThrow());
     }
 
     @RolesAllowed(MusicianRoles.USER)
+    @Loggable
     public void update(Skill entity) {
         checkAdminRoleOrOwner(skillRepository.find(entity.getId()));
         skillRepository.update(entity);

@@ -12,6 +12,8 @@
         <feature>appSecurity-5.0</feature>
     </featureManager>
 
+    <logging traceSpecification="*=info" consoleLogLevel="INFO"/>
+
     <application type="war" location="demo-1.0-SNAPSHOT.war">
         <application-bnd>
             <security-role name="admin">
