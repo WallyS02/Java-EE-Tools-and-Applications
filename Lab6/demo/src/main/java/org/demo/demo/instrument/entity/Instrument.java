@@ -35,6 +35,6 @@ public class Instrument implements Serializable {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "instrument", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "instrument", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Skill> skills;
 }

@@ -50,6 +50,8 @@ public class InstrumentPersistenceRepository implements InstrumentRepository {
 
     @Override
     public void delete(Instrument entity) {
+        em.getEntityManagerFactory().getCache().evictAll();
+        em.clear();
         em.remove(em.find(Instrument.class, entity.getId()));
     }
 
