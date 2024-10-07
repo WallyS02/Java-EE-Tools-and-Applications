@@ -13,12 +13,12 @@
         <h:outputStylesheet library="skill" name="css/skill_create.css"/>
 
         <article>
-            <header><h2>Create Skill</h2></header>
+            <header><h2>#{msg['skills.create.skill']}</h2></header>
             <h:form styleClass="container" onreset="onReset()">
                 <div class="row">
                     <div class="col-4 p-2">
                         <fieldset>
-                            <legend class="form-label fs-6">Level:</legend>
+                            <legend class="form-label fs-6">#{msg['skills.level']}:</legend>
                             <ui:repeat value="#{skillCreate.levels}" var="level">
                                 <div class="form-check">
                                     <h:selectOneRadio id="levelRadioId" group="level"
@@ -37,7 +37,7 @@
                     <div class="col-4 p-2">
                         <div class="form-outline">
                             <h:inputText id="favouriteModelName" value="#{skillCreate.skill.favouriteModelName}" styleClass="form-control"/>
-                            <h:outputLabel for="favouriteModelName" value="Favourite Model Name:" styleClass="form-label"/>
+                            <h:outputLabel for="favouriteModelName" value="#{msg['skills.favourite.model']}" styleClass="form-label"/>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         <div class="form-outline">
                             <h:inputTextarea id="numberOfPlayingYears" value="#{skillCreate.skill.numberOfPlayingYears}"
                                              styleClass="form-control"/>
-                            <h:outputLabel for="numberOfPlayingYears" value="Number of Playing Years:" styleClass="form-label"/>
+                            <h:outputLabel for="numberOfPlayingYears" value="#{msg['skills.playing.years']}" styleClass="form-label"/>
                         </div>
                     </div>
                 </div>
@@ -72,11 +72,11 @@
 
                 <div class="row">
                     <div class="col-2 p-2 text-center">
-                        <h:commandButton styleClass="btn btn-primary" value="Create"
+                        <h:commandButton styleClass="btn btn-primary" value="#{msg['skills.create']}"
                                          action="#{skillCreate.save()}"/>
                     </div>
                     <div class="col-2 p-2 text-center">
-                        <h:commandButton styleClass="btn btn-secondary" value="Cancel"
+                        <h:commandButton styleClass="btn btn-secondary" value="#{msg['skills.cancel']}"
                                          action="#{skillCreate.cancel()}"/>
                     </div>
                 </div>
