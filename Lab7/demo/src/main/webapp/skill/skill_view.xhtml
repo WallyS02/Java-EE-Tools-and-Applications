@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{skillView.id}" required="true"/>
+        <f:viewAction action="#{skillView.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:outputStylesheet library="skill" name="css/skill_view.css"/>
+
+        <article>
+            <header><h2><h:outputText value="#{skillView.skill.level}"/></h2></header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Number of Playing Years
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{skillView.skill.numberOfPlayingYears}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Favourite Model Name
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{skillView.skill.favouriteModelName}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Instrument
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{skillView.skill.instrument}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                View
+                            </div>
+                            <div class="col-6">
+                                <h:link outcome="/skill/skill_edit.xhtml" value="Edit">
+                                    <f:param name="id" value="#{skillView.skill.id}"/>
+                                </h:link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </ui:define>
+
+</ui:composition>
