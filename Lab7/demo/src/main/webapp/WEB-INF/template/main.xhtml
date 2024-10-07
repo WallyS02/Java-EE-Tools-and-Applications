@@ -24,8 +24,7 @@
     <h:body>
         <div class="container">
             <header class="mb-4 mt-4">
-                <h:graphicImage alt="#{msg['image.alt']}" style="width: 100px; height: 100px;"
-                                value="#{resource['images/note.png']}"/>
+                <h:graphicImage alt="#{msg['image.alt']}" style="width: 100px; height: 100px;" name="images/#{facesContext.viewRoot.locale}.png"/>
                 <h1>#{msg['music']}</h1>
                 <h2>#{msg['who.plays']}</h2>
                 <h:form styleClass="container d-flex align-items-center justify-content-end"
