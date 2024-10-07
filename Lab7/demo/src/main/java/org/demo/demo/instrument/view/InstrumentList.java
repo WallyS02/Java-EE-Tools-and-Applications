@@ -7,18 +7,11 @@ import jakarta.inject.Named;
 import org.demo.demo.component.ModelFunctionFactory;
 import org.demo.demo.instrument.model.InstrumentsModel;
 import org.demo.demo.instrument.service.InstrumentService;
-import org.demo.demo.skill.entity.Skill;
-import org.demo.demo.skill.service.SkillService;
-
-import java.util.List;
-import java.util.Optional;
 
 @RequestScoped
 @Named
 public class InstrumentList {
     private InstrumentService instrumentService;
-
-    //private SkillService skillService;
 
     private InstrumentsModel instruments;
 
@@ -34,11 +27,6 @@ public class InstrumentList {
         this.instrumentService = instrumentService;
     }
 
-    /*@EJB
-    public void setSkillService(SkillService skillService) {
-        this.skillService = skillService;
-    }*/
-
     public InstrumentsModel getInstruments() {
         if(instruments == null) {
             instruments = modelFunctionFactory.instrumentsToModel().apply(instrumentService.findAll());
@@ -46,14 +34,8 @@ public class InstrumentList {
         return instruments;
     }
 
-    public String deleteInstrument(InstrumentsModel.Instrument instrument) {
-        /*Optional<List<Skill>> skills1 = skillService.findAllByInstrument(instrument.getId());
-        if(skills1.isPresent()) {
-            for(Skill skill : skills1.get()) {
-                skillService.delete(skill.getId());
-            }
-        }*/
+    public void deleteInstrument(InstrumentsModel.Instrument instrument) {
         instrumentService.delete(instrument.getId());
-        return "instrument_list?faces-redirect=true";
+        this.instruments = modelFunctionFactory.instrumentsToModel().apply(instrumentService.findAll());
     }
 }

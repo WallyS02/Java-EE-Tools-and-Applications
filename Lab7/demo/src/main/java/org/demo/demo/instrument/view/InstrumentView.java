@@ -71,9 +71,13 @@ public class InstrumentView implements Serializable {
         }
     }
 
-    public String deleteSkill(SkillsModel.Skill skill) {
+    public void deleteSkill(SkillsModel.Skill skill) throws IOException {
         skillService.delete(skill.getId());
-        String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-        return viewId + "?faces-redirect=true&includeViewParams=true";
+        Optional<List<Skill>> skills1 = skillService.findAllByInstrumentForCallerPrincipal(instrument.getId());
+        if(skills1.isPresent()) {
+            this.skills = modelFunctionFactory.skillsToModel().apply(skills1.get());
+        } else {
+            FacesContext.getCurrentInstance().getExternalContext().responseSendError(HttpServletResponse.SC_NOT_FOUND, "Skills not found");
+        }
     }
 }

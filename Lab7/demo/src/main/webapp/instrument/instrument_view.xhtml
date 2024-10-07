@@ -22,7 +22,7 @@
                             <div class="col-6">
                                 #{msg['skills']}
                             </div>
-                            <h:dataTable value="#{instrumentView.skills.skills}" var="skill"
+                            <h:dataTable id="skillDataTable" value="#{instrumentView.skills.skills}" var="skill"
                                          styleClass="table align-middle mb-0 bg-white" headerClass="bg-light">
 
                                 <h:column>
@@ -46,7 +46,9 @@
                                     <f:facet name="header">#{msg['skills.delete']}</f:facet>
                                     <h:form>
                                         <h:commandButton styleClass="btn" value="#{msg['skills.delete']}"
-                                                         action="#{instrumentView.deleteSkill(skill)}"/>
+                                                         action="#{instrumentView.deleteSkill(skill)}">
+                                        <f:ajax render="skillDataTable"/>
+                                    </h:commandButton>
                                     </h:form>
                                 </h:column>
                             </h:dataTable>

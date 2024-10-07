@@ -11,7 +11,7 @@
         <article class="text--justified">
             <header><h2>#{msg['instruments']}</h2></header>
 
-            <h:dataTable value="#{instrumentList.instruments.instruments}" var="instrument"
+            <h:dataTable id="instrumentDataTable" value="#{instrumentList.instruments.instruments}" var="instrument"
                          styleClass="table align-middle mb-0 bg-white" headerClass="bg-light">
                 <h:column>
                     <f:facet name="header">#{msg['instruments.name']}</f:facet>
@@ -29,7 +29,9 @@
                     <f:facet name="header">#{msg['instruments.delete']}</f:facet>
                     <h:form>
                         <h:commandButton styleClass="btn" value="#{msg['instruments.delete']}"
-                                         action="#{instrumentList.deleteInstrument(instrument)}"/>
+                                         action="#{instrumentList.deleteInstrument(instrument)}">
+                            <f:ajax render="instrumentDataTable"/>
+                        </h:commandButton>
                     </h:form>
                 </h:column>
             </h:dataTable>
