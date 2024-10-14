@@ -88,7 +88,8 @@ public class InitializeData implements ServletContextListener {
                 .id(UUID.fromString("ce087038-fa2b-44e6-8f24-a786d375b2ec"))
                 .name("Acoustic Guitar")
                 .type("String")
-                .description("Acoustic guitar with six strings")
+                .typicalPrice(1000)
+                .tuningFrequency(440)
                 .skills(List.of())
                 .build();
 
@@ -96,7 +97,8 @@ public class InitializeData implements ServletContextListener {
                 .id(UUID.fromString("7d9d2e0e-cf45-4078-bf84-edb16423a30e"))
                 .name("Piano")
                 .type("Keyboard")
-                .description("Classical grand piano")
+                .typicalPrice(40000)
+                .tuningFrequency(440)
                 .skills(List.of())
                 .build();
 
@@ -104,7 +106,8 @@ public class InitializeData implements ServletContextListener {
                 .id(UUID.fromString("7fc91ddb-0ef7-40f8-b5b6-8db9fef2ee55"))
                 .name("Drums")
                 .type("Percussion")
-                .description("Five-piece drum kit")
+                .typicalPrice(2300)
+                .tuningFrequency(220)
                 .skills(List.of())
                 .build();
 
@@ -112,7 +115,8 @@ public class InitializeData implements ServletContextListener {
                 .id(UUID.fromString("8386c961-3808-43ec-bfa2-760eacb6d605"))
                 .name("Electric Guitar")
                 .type("String")
-                .description("Electric guitar with six strings")
+                .typicalPrice(1500)
+                .tuningFrequency(440)
                 .skills(List.of())
                 .build();
 
