@@ -17,6 +17,11 @@
     </env-entry>
 
     <context-param>
+        <param-name>jakarta.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
         <param-name>jakarta.faces.FACELETS_SKIP_COMMENTS </param-name>
         <param-value>true</param-value>
     </context-param>
@@ -54,6 +59,16 @@
         <web-resource-collection>
             <web-resource-name>skill</web-resource-name>
             <url-pattern>/skill/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>chat</web-resource-name>
+            <url-pattern>/chat/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>user</role-name>

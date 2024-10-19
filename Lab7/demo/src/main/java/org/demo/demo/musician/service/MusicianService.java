@@ -58,11 +58,11 @@ public class MusicianService {
 
     @RolesAllowed(MusicianRoles.USER)
     public Optional<Musician> find(UUID id) {
-        checkAdminRoleOrOwner(musicianRepository.find(id));
+        //checkAdminRoleOrOwner(musicianRepository.find(id));
         return musicianRepository.find(id);
     }
 
-    @RolesAllowed(MusicianRoles.ADMIN)
+    @RolesAllowed(MusicianRoles.USER)
     public List<Musician> findAll() {
         return musicianRepository.findAll();
     }
