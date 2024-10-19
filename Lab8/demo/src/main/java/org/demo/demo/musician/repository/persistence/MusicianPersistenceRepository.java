@@ -5,6 +5,9 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import jakarta.ws.rs.NotFoundException;
 import org.demo.demo.musician.entity.Musician;
 import org.demo.demo.musician.repository.api.MusicianRepository;
@@ -34,38 +37,74 @@ public class MusicianPersistenceRepository implements MusicianRepository {
 
     @Override
     public Optional<Musician> findByLogin(String login) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Musician> cq = cb.createQuery(Musician.class);
+        Root<Musician> musician = cq.from(Musician.class);
+        cq.select(musician).where(cb.equal(musician.get("login"), login));
+
         try {
+            return Optional.of(em.createQuery(cq).getSingleResult());
+        } catch (NoResultException ex) {
+            return Optional.empty();
+        }
+
+        /*try {
             return Optional.of(em.createQuery("select m from Musician m where m.login = :login", Musician.class)
                     .setParameter("login", login)
                     .getSingleResult());
         } catch (NoResultException ex) {
             return Optional.empty();
-        }
+        }*/
     }
 
     @Override
     public Optional<Musician> findByEmail(String email) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Musician> cq = cb.createQuery(Musician.class);
+        Root<Musician> musician = cq.from(Musician.class);
+        cq.select(musician).where(cb.equal(musician.get("email"), email));
+
         try {
+            return Optional.of(em.createQuery(cq).getSingleResult());
+        } catch (NoResultException ex) {
+            return Optional.empty();
+        }
+
+        /*try {
             return Optional.of(em.createQuery("select m from Musician m where m.email = :email", Musician.class)
                     .setParameter("email", email)
                     .getSingleResult());
         } catch (NoResultException ex) {
             return Optional.empty();
-        }
+        }*/
     }
 
     @Override
     public List<Musician> findByFirstName(String firstName) {
-        return em.createQuery("select m from Musician m where m.firstName = :firstName", Musician.class)
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Musician> cq = cb.createQuery(Musician.class);
+        Root<Musician> musician = cq.from(Musician.class);
+        cq.select(musician).where(cb.equal(musician.get("firstName"), firstName));
+
+        return em.createQuery(cq).getResultList();
+
+        /*return em.createQuery("select m from Musician m where m.firstName = :firstName", Musician.class)
                 .setParameter("firstName", firstName)
-                .getResultList();
+                .getResultList();*/
     }
 
     @Override
     public List<Musician> findByLastName(String lastName) {
-        return em.createQuery("select m from Musician m where m.lastName = :lastName", Musician.class)
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Musician> cq = cb.createQuery(Musician.class);
+        Root<Musician> musician = cq.from(Musician.class);
+        cq.select(musician).where(cb.equal(musician.get("lastName"), lastName));
+
+        return em.createQuery(cq).getResultList();
+
+        /*return em.createQuery("select m from Musician m where m.lastName = :lastName", Musician.class)
                 .setParameter("lastName", lastName)
-                .getResultList();
+                .getResultList();*/
     }
 
     @Override
@@ -138,7 +177,14 @@ public class MusicianPersistenceRepository implements MusicianRepository {
 
     @Override
     public List<Musician> findAll() {
-        return em.createQuery("select m from Musician m", Musician.class).getResultList();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Musician> cq = cb.createQuery(Musician.class);
+        Root<Musician> musician = cq.from(Musician.class);
+        cq.select(musician);
+
+        return em.createQuery(cq).getResultList();
+
+        //return em.createQuery("select m from Musician m", Musician.class).getResultList();
     }
 
     @Override

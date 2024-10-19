@@ -3,6 +3,9 @@ package org.demo.demo.instrument.repository.persistence;
 import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import org.demo.demo.instrument.entity.Instrument;
 import org.demo.demo.instrument.repository.api.InstrumentRepository;
 
@@ -21,16 +24,30 @@ public class InstrumentPersistenceRepository implements InstrumentRepository {
 
     @Override
     public List<Instrument> findAllByName(String name) {
-        return em.createQuery("select i from Instrument i where i.name = :name", Instrument.class)
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Instrument> cq = cb.createQuery(Instrument.class);
+        Root<Instrument> instrument = cq.from(Instrument.class);
+        cq.select(instrument).where(cb.equal(instrument.get("name"), name));
+
+        return em.createQuery(cq).getResultList();
+
+        /*return em.createQuery("select i from Instrument i where i.name = :name", Instrument.class)
                 .setParameter("name", name)
-                .getResultList();
+                .getResultList();*/
     }
 
     @Override
     public List<Instrument> findAllByType(String type) {
-        return em.createQuery("select i from Instrument i where i.type = :type", Instrument.class)
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Instrument> cq = cb.createQuery(Instrument.class);
+        Root<Instrument> instrument = cq.from(Instrument.class);
+        cq.select(instrument).where(cb.equal(instrument.get("type"), type));
+
+        return em.createQuery(cq).getResultList();
+
+        /*return em.createQuery("select i from Instrument i where i.type = :type", Instrument.class)
                 .setParameter("type", type)
-                .getResultList();
+                .getResultList();*/
     }
 
     @Override
@@ -40,7 +57,14 @@ public class InstrumentPersistenceRepository implements InstrumentRepository {
 
     @Override
     public List<Instrument> findAll() {
-        return em.createQuery("select i from Instrument i", Instrument.class).getResultList();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Instrument> cq = cb.createQuery(Instrument.class);
+        Root<Instrument> instrument = cq.from(Instrument.class);
+        cq.select(instrument);
+
+        return em.createQuery(cq).getResultList();
+
+        //return em.createQuery("select i from Instrument i", Instrument.class).getResultList();
     }
 
     @Override
