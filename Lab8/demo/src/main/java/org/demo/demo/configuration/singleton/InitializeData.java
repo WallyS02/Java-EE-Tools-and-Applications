@@ -154,7 +154,7 @@ public class InitializeData implements ServletContextListener {
 
         Skill skill1 = Skill.builder()
                 .id(UUID.fromString("9b3bec33-428d-4c7d-a659-50aa5892a05a"))
-                .numberOfPlayingYears(30)
+                .numberOfPlayingYears(4)
                 .level(Level.INTERMEDIATE)
                 .favouriteModelName("Epiphone Casino")
                 .musician(musician1)
@@ -163,7 +163,7 @@ public class InitializeData implements ServletContextListener {
 
         Skill skill2 = Skill.builder()
                 .id(UUID.fromString("bf07d104-9cdf-408a-a599-176aa568fd7d"))
-                .numberOfPlayingYears(30)
+                .numberOfPlayingYears(5)
                 .level(Level.INTERMEDIATE)
                 .favouriteModelName("Blüthner Grand Piano")
                 .musician(musician2)
@@ -172,7 +172,7 @@ public class InitializeData implements ServletContextListener {
 
         Skill skill3 = Skill.builder()
                 .id(UUID.fromString("ab686ff2-b21b-470e-911e-965741f16b36"))
-                .numberOfPlayingYears(30)
+                .numberOfPlayingYears(10)
                 .level(Level.ADVANCED)
                 .favouriteModelName("Ludwig Downbeat Kit")
                 .musician(musician3)
@@ -181,7 +181,7 @@ public class InitializeData implements ServletContextListener {
 
         Skill skill4 = Skill.builder()
                 .id(UUID.fromString("8f769997-623d-4eb4-b4e0-9fb6f5234fbb"))
-                .numberOfPlayingYears(30)
+                .numberOfPlayingYears(12)
                 .level(Level.ADVANCED)
                 .favouriteModelName("Gibson SG Standard")
                 .musician(musician4)

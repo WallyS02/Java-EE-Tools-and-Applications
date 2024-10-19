@@ -1,15 +1,20 @@
 package org.demo.demo.skill.view;
 
 import jakarta.ejb.EJB;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.OptimisticLockException;
+import jakarta.validation.ConstraintViolationException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
 import org.demo.demo.component.ModelFunctionFactory;
 import org.demo.demo.instrument.model.InstrumentModel;
 import org.demo.demo.instrument.service.InstrumentService;
+import org.demo.demo.skill.entity.Skill;
 import org.demo.demo.skill.model.SkillCreateModel;
 import org.demo.demo.skill.service.SkillService;
 import org.demo.demo.util.Level;
@@ -35,9 +40,12 @@ public class SkillCreate implements Serializable {
     @Getter
     private List<InstrumentModel> instruments;
 
+    private final FacesContext facesContext;
+
     @Inject
-    public SkillCreate(ModelFunctionFactory modelFunctionFactory) {
+    public SkillCreate(ModelFunctionFactory modelFunctionFactory, FacesContext facesContext) {
         this.modelFunctionFactory = modelFunctionFactory;
+        this.facesContext = facesContext;
     }
 
     @EJB
@@ -64,8 +72,16 @@ public class SkillCreate implements Serializable {
     }
 
     public String save() {
-        skillService.createForCallerPrincipal(modelFunctionFactory.modelToSkill().apply(skill));
-        return "/instrument/instrument_list.xhtml?faces-redirect=true";
+        try {
+            skillService.createForCallerPrincipal(modelFunctionFactory.modelToSkill().apply(skill));
+            return "/instrument/instrument_list.xhtml?faces-redirect=true";
+        } catch (Exception e) {
+            if (e.getCause() instanceof ConstraintViolationException) {
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
+            }
+
+            return null;
+        }
     }
 
     public Level[] getLevels() {

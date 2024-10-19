@@ -7,7 +7,9 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.OptimisticLockException;
+import jakarta.transaction.RollbackException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.ConstraintViolationException;
 import lombok.Getter;
 import lombok.Setter;
 import org.demo.demo.component.ModelFunctionFactory;
@@ -66,18 +68,20 @@ public class SkillEdit implements Serializable {
             if (e.getCause() instanceof OptimisticLockException) {
                 Skill updatedSkill = skillService.find(id).orElseThrow();
 
-                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, getConflictSummary(updatedSkill), null));
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, getOptimisticLockingConflictSummary(updatedSkill), null));
 
                 skill.setLevel(updatedSkill.getLevel());
                 skill.setFavouriteModelName(updatedSkill.getFavouriteModelName());
                 skill.setNumberOfPlayingYears(updatedSkill.getNumberOfPlayingYears());
+            } else if (e.getCause() instanceof ConstraintViolationException || e.getCause() instanceof RollbackException) {
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
             }
 
             return null;
         }
     }
 
-    private String getConflictSummary(Skill updatedSkill) {
+    private String getOptimisticLockingConflictSummary(Skill updatedSkill) {
         String conflictSummary = "Version conflict: Skill updated by other musician.";
         if(!updatedSkill.getLevel().equals(skill.getLevel())) {
             conflictSummary += "\n level changed: " + skill.getLevel() + " -> " + updatedSkill.getLevel();

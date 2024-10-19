@@ -1,10 +1,13 @@
 package org.demo.demo.skill.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.demo.demo.instrument.entity.Instrument;
 import org.demo.demo.musician.entity.Musician;
+import org.demo.demo.skill.validation.annotation.ValidPlayingYearsProportionality;
 import org.demo.demo.util.Level;
 
 import java.io.Serializable;
@@ -20,16 +23,19 @@ import java.util.UUID;
 @EqualsAndHashCode
 @Entity
 @Table(name = "skills")
+@ValidPlayingYearsProportionality
 public class Skill implements Serializable {
     @Id
     private UUID id;
 
     @Column(name = "number_of_playing_years")
+    @NotNull
     private Integer numberOfPlayingYears;
 
     private Level level;
 
     @Column(name = "favourite_model_name")
+    @NotBlank
     private String favouriteModelName;
 
     @Version
