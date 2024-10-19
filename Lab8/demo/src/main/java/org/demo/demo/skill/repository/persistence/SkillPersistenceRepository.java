@@ -6,6 +6,7 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.demo.demo.instrument.entity.Instrument;
 import org.demo.demo.musician.entity.Musician;
@@ -13,9 +14,7 @@ import org.demo.demo.skill.entity.Skill;
 import org.demo.demo.skill.repository.api.SkillRepository;
 import org.demo.demo.util.Level;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Dependent
 public class SkillPersistenceRepository implements SkillRepository {
@@ -110,6 +109,34 @@ public class SkillPersistenceRepository implements SkillRepository {
         } catch (NoResultException e) {
             return Optional.empty();
         }*/
+    }
+
+    @Override
+    public List<Skill> findAllByLevelAndOrFavouriteModelNameAndOrNumberOfPlayingYearsAndInstrumentAndMusician(Level level, String favouriteModelName, Integer numberOfPlayingYears, Instrument instrument, Musician musician) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Skill> cq = cb.createQuery(Skill.class);
+        Root<Skill> skill = cq.from(Skill.class);
+
+        cq.select(skill);
+        List<Predicate> predicates = new ArrayList<>();
+
+        predicates.add(cb.equal(skill.get("instrument"), instrument));
+        if (musician != null) {
+            predicates.add(cb.equal(skill.get("musician"), musician));
+        }
+        if (level != null) {
+            predicates.add(cb.equal(skill.get("level"), level));
+        }
+        if (!Objects.equals(favouriteModelName, "")) {
+            predicates.add(cb.equal(skill.get("favouriteModelName"), favouriteModelName));
+        }
+        if (numberOfPlayingYears != null) {
+            predicates.add(cb.equal(skill.get("numberOfPlayingYears"), numberOfPlayingYears));
+        }
+
+        cq.where(predicates.toArray(new Predicate[0]));
+
+        return em.createQuery(cq).getResultList();
     }
 
     @Override

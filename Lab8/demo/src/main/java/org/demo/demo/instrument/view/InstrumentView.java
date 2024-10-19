@@ -15,6 +15,7 @@ import org.demo.demo.instrument.service.InstrumentService;
 import org.demo.demo.skill.entity.Skill;
 import org.demo.demo.skill.model.SkillsModel;
 import org.demo.demo.skill.service.SkillService;
+import org.demo.demo.util.Level;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -40,6 +41,18 @@ public class InstrumentView implements Serializable {
 
     @Getter
     private SkillsModel skills;
+
+    @Setter
+    @Getter
+    private Level level;
+
+    @Setter
+    @Getter
+    private String favouriteModel;
+
+    @Setter
+    @Getter
+    private Integer playingYears;
 
     @Inject
     public InstrumentView(ModelFunctionFactory modelFunctionFactory) {
@@ -71,6 +84,24 @@ public class InstrumentView implements Serializable {
         }
     }
 
+    public void filter() throws IOException {
+        Optional<List<Skill>> skills1 = skillService.findAllByLevelAndOrFavouriteModelNameAndOrNumberOfPlayingYearsAndInstrumentAndMusicianForCallerPrincipal(level, favouriteModel, playingYears, instrument.getId());
+        if(skills1.isPresent()) {
+            this.skills = modelFunctionFactory.skillsToModel().apply(skills1.get());
+        } else {
+            FacesContext.getCurrentInstance().getExternalContext().responseSendError(HttpServletResponse.SC_NOT_FOUND, "Skills not found");
+        }
+    }
+
+    public void clear() throws IOException {
+        Optional<List<Skill>> skills1 = skillService.findAllByInstrumentForCallerPrincipal(instrument.getId());
+        if(skills1.isPresent()) {
+            this.skills = modelFunctionFactory.skillsToModel().apply(skills1.get());
+        } else {
+            FacesContext.getCurrentInstance().getExternalContext().responseSendError(HttpServletResponse.SC_NOT_FOUND, "Skills not found");
+        }
+    }
+
     public void deleteSkill(SkillsModel.Skill skill) throws IOException {
         skillService.delete(skill.getId());
         Optional<List<Skill>> skills1 = skillService.findAllByInstrumentForCallerPrincipal(instrument.getId());
@@ -79,5 +110,9 @@ public class InstrumentView implements Serializable {
         } else {
             FacesContext.getCurrentInstance().getExternalContext().responseSendError(HttpServletResponse.SC_NOT_FOUND, "Skills not found");
         }
+    }
+
+    public Level[] getLevels() {
+        return Level.values();
     }
 }

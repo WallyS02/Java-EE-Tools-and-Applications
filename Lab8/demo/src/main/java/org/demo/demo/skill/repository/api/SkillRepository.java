@@ -16,4 +16,5 @@ public interface SkillRepository extends Repository<Skill, UUID> {
     List<Skill> findAllByMusician(Musician musician);
     List<Skill> findAllByInstrumentAndMusician(Instrument instrument, Musician musician);
     Optional<Skill> findByIdAndMusician(UUID id, Musician musician);
+    List<Skill> findAllByLevelAndOrFavouriteModelNameAndOrNumberOfPlayingYearsAndInstrumentAndMusician(Level level, String favouriteModelName, Integer numberOfPlayingYears, Instrument instrument, Musician musician);
 }

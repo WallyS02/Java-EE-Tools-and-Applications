@@ -6,6 +6,7 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.SecurityContext;
+import jakarta.ws.rs.NotFoundException;
 import lombok.NoArgsConstructor;
 import org.demo.demo.annotation.Loggable;
 import org.demo.demo.instrument.repository.api.InstrumentRepository;
@@ -76,6 +77,14 @@ public class SkillService {
             return skillRepository.findAll();
         }
         return skillRepository.findAllByMusician(musicianRepository.findByLogin(securityContext.getCallerPrincipal().getName()).orElseThrow(IllegalStateException::new));
+    }
+
+    @RolesAllowed(MusicianRoles.USER)
+    public Optional<List<Skill>> findAllByLevelAndOrFavouriteModelNameAndOrNumberOfPlayingYearsAndInstrumentAndMusicianForCallerPrincipal(Level level, String favouriteModelName, Integer numberOfPlayingYears, UUID instrumentId) {
+        if(securityContext.isCallerInRole(MusicianRoles.ADMIN)) {
+            return Optional.ofNullable(skillRepository.findAllByLevelAndOrFavouriteModelNameAndOrNumberOfPlayingYearsAndInstrumentAndMusician(level, favouriteModelName, numberOfPlayingYears, instrumentRepository.find(instrumentId).orElseThrow(NotFoundException::new), null));
+        }
+        return Optional.ofNullable(skillRepository.findAllByLevelAndOrFavouriteModelNameAndOrNumberOfPlayingYearsAndInstrumentAndMusician(level, favouriteModelName, numberOfPlayingYears, instrumentRepository.find(instrumentId).orElseThrow(NotFoundException::new), musicianRepository.findByLogin(securityContext.getCallerPrincipal().getName()).orElseThrow(IllegalStateException::new)));
     }
 
     @RolesAllowed(MusicianRoles.USER)

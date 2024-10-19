@@ -22,6 +22,30 @@
                             <div class="col-6">
                                 #{msg['skills']}
                             </div>
+                            <h:form id="filterForm" styleClass="filter-form">
+                                <h:panelGrid columns="2" class="form-grid m-2">
+                                    <legend class="form-label fs-6">#{msg['skills.level']}:</legend>
+                                    <ui:repeat value="#{instrumentView.levels}" var="level">
+                                        <div class="form-check">
+                                            <h:selectOneRadio id="levelRadioId" group="level"
+                                                              value="#{instrumentView.level}"
+                                                              styleClass="form-check-input"
+                                                              enabledClass="form-check-label">
+                                                <f:selectItem itemValue="#{level}" itemLabel="#{level.name()}"/>
+                                            </h:selectOneRadio>
+                                        </div>
+                                    </ui:repeat>
+
+                                    <h:outputLabel for="favouriteModel" value="#{msg['skills.favourite.model']}:" styleClass="form-label"/>
+                                    <h:inputText id="favouriteModel" value="#{instrumentView.favouriteModel}" styleClass="form-input"/>
+
+                                    <h:outputLabel for="playingYears" value="#{msg['skills.playing.years']}:" styleClass="form-label"/>
+                                    <h:inputText id="playingYears" value="#{instrumentView.playingYears}" styleClass="form-input"/>
+
+                                    <h:commandButton value="#{msg['skills.filter']}" action="#{instrumentView.filter}" styleClass="btn btn-primary"/>
+                                    <h:commandButton value="#{msg['skills.clear']}" action="#{instrumentView.clear}" styleClass="btn btn-secondary"/>
+                                </h:panelGrid>
+                            </h:form>
                             <h:dataTable id="skillDataTable" value="#{instrumentView.skills.skills}" var="skill"
                                          styleClass="table align-middle mb-0 bg-white" headerClass="bg-light">
 
