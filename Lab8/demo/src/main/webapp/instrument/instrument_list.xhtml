@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <ui:define name="content">
+        <h:outputStylesheet library="instrument" name="css/instrument_list.css"/>
+
+        <article class="text--justified">
+            <header><h2>#{msg['instruments']}</h2></header>
+
+            <h:dataTable id="instrumentDataTable" value="#{instrumentList.instruments.instruments}" var="instrument"
+                         styleClass="table align-middle mb-0 bg-white" headerClass="bg-light">
+                <h:column>
+                    <f:facet name="header">#{msg['instruments.name']}</f:facet>
+                    <h:outputText value="#{instrument.name}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">#{msg['instruments.view']}</f:facet>
+                    <h:link outcome="/instrument/instrument_view.xhtml" value="#{msg['instruments.view']}">
+                        <f:param name="id" value="#{instrument.id}"/>
+                    </h:link>
+                </h:column>
+
+                <h:column rendered="#{facesContext.externalContext.isUserInRole('admin')}">
+                    <f:facet name="header">#{msg['instruments.delete']}</f:facet>
+                    <h:form>
+                        <h:commandButton styleClass="btn" value="#{msg['instruments.delete']}"
+                                         action="#{instrumentList.deleteInstrument(instrument)}">
+                            <f:ajax render="instrumentDataTable"/>
+                        </h:commandButton>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+
+            <div class="row mb-2 mt-2">
+                <h4>#{msg['skills.h4.create']}</h4>
+                <div class="col-6">
+                    <h:link outcome="/skill/skill_create.xhtml" value="#{msg['skills.create']}"/>
+                </div>
+            </div>
+        </article>
+    </ui:define>
+
+</ui:composition>

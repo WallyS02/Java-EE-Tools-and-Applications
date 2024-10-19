@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewAction action="#{chatView.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:outputStylesheet library="chat" name="css/chat.css"/>
+
+        <f:websocket channel="chat" onmessage="receive"/>
+        <f:websocket channel="privateChat" rendered="#{facesContext.externalContext.userPrincipal != null}" user="#{facesContext.externalContext.userPrincipal.name}" onmessage="receive"/>
+
+        <article>
+            <header><h2>Chat</h2></header>
+
+            <div class="chat-container">
+                <aside>
+                    <div class="form-outline">
+                        <textarea class="form-control" rows="4" id="messageContainer" readonly="readonly"/>
+                        <label for="messageContainer" class="form-label">#{msg['chat.messages']}</label>
+                    </div>
+                </aside>
+
+                <div class="message-input">
+                    <h:form id="chatForm">
+                        <h:inputText id="message" value="#{chatView.message}" styleClass="form-control"/>
+                        <h:outputLabel for="message" value="#{msg['chat.placeholder']}" styleClass="form-label"/>
+                        <h:selectOneMenu id="addresse" value="#{chatView.recipient}" styleClass="m-1">
+                            <f:selectItems value="#{chatView.recipients}" var="recipient" itemValue="#{recipient}" itemLabel="#{recipient}"/>
+                        </h:selectOneMenu>
+                        <h:commandButton value="#{msg['chat.send']}" styleClass="btn btn-primary m-1" action="#{chatView.sendMessage}">
+                            <f:ajax execute="message addresse"/>
+                        </h:commandButton>
+                    </h:form>
+                </div>
+            </div>
+
+            <script>
+                function receive(msg, channel, event) {
+                    let data = JSON.parse(event.data);
+                    if (data.private === false) {
+                        appendLine(data.sender + ': ' + data.content);
+                    } else {
+                        appendLine('Private message from: ' + data.sender + ': ' + data.content);
+                    }
+                }
+
+                function appendLine(line) {
+                    let textarea = document.getElementById('messageContainer');
+                    textarea.value += '\n' + line;
+                }
+            </script>
+        </article>
+    </ui:define>
+</ui:composition>
